@@ -2,15 +2,19 @@
   "name": "feoma",
   "version": "1.0.0",
   "scripts": {
-    "build": "webpack --progress --config webpack.config.build.js",
-    "development": "webpack serve --progress --config webpack.config.development.js",
-    "start": "npm run development"
+    "backend:build": "node app.js",
+    "backend:development": "nodemon app.js",
+    "frontend:build": "webpack --progress --config webpack.config.build.js",
+    "frontend:development": "webpack serve --progress --config webpack.config.development.js",
+    "start": "concurrently --kill-others \"npm run backend:development\" \"npm run frontend:development\""
   },
   "author": "Taif Rahaman",
   "devDependencies": {
     "@babel/core": "^7.14.6",
+    "@prettier/plugin-pug": "^1.16.1",
     "babel-loader": "^8.2.2",
     "clean-webpack-plugin": "^4.0.0-alpha.0",
+    "concurrently": "^6.2.0",
     "copy-webpack-plugin": "^9.0.1",
     "css-loader": "^6.1.0",
     "eslint": "^7.31.0",
@@ -35,5 +39,10 @@
     "webpack-cli": "^4.7.2",
     "webpack-dev-server": "^3.11.2",
     "webpack-merge": "^5.8.0"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "nodemon": "^2.0.12",
+    "pug": "^3.0.2"
   }
 }
