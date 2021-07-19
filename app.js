@@ -1,7 +1,43 @@
+require("dotenv").config();
+
 const express = require("express");
 const path = require("path");
 const app = express();
 const port = 3000;
+
+const Prismic = require("@prismicio/client");
+var PrismicDOM = require("prismic-dom");
+
+// Link Resolver
+const linkResolver = (doc) => {
+  // // Define the url depending on the document type
+  // if (doc.type === 'page') {
+  //   return '/page/' + doc.uid;
+  // } else if (doc.type === 'blog_post') {
+  //   return '/blog/' + doc.uid;
+  // }
+
+  // // Default to homepage
+  return "/";
+};
+
+// Middleware to inject prismic context
+app.use((req, res, next) => {
+  res.locals.ctx = {
+    endpoint: process.env.PRISMIC_ENDPOINT,
+    linkResolver,
+  };
+  // add PrismicDOM in locals to access them in templates.
+  res.locals.PrismicDOM = PrismicDOM;
+  next();
+});
+
+const initApi = (req) => {
+  return Prismic.getApi(process.env.PRISMIC_ENDPOINT, {
+    accessToken: process.env.PRISMIC_ACCESS_TOKEN,
+    req,
+  });
+};
 
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "pug");
@@ -10,12 +46,26 @@ app.get("/", (req, res) => {
   res.render("pages/home");
 });
 
-app.get("/collections", (req, res) => {
-  res.render("pages/collections");
+app.get("/collection", (req, res) => {
+  res.render("pages/collection");
 });
 
 app.get("/about", (req, res) => {
-  res.render("pages/about");
+  initApi(req).then((api) => {
+    api
+      .query(Prismic.Predicates.any("document.type", ["meta", "about"]))
+      .then((response) => {
+        const { results } = response;
+        const [meta, about] = results;
+        console.log(meta, "meta");
+        console.log(about, "about");
+        // response is the response object. Render your views here.
+        res.render("pages/about", {
+          meta,
+          about,
+        });
+      });
+  });
 });
 
 app.get("/details/:id", (req, res) => {
