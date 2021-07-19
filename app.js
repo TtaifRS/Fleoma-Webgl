@@ -6,7 +6,7 @@ const app = express();
 const port = 3000;
 
 const Prismic = require("@prismicio/client");
-var PrismicDOM = require("prismic-dom");
+const PrismicDOM = require("prismic-dom");
 
 // Link Resolver
 const linkResolver = (doc) => {
@@ -57,8 +57,8 @@ app.get("/about", (req, res) => {
       .then((response) => {
         const { results } = response;
         const [meta, about] = results;
-        console.log(meta, "meta");
-        console.log(about, "about");
+        console.log(meta);
+
         // response is the response object. Render your views here.
         res.render("pages/about", {
           meta,
