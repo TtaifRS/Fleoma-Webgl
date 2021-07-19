@@ -1,6 +1,7 @@
 require("dotenv").config();
 
 const express = require("express");
+var errorhandler = require("errorhandler");
 const path = require("path");
 const app = express();
 const port = 3000;
@@ -20,6 +21,8 @@ const linkResolver = (doc) => {
   // // Default to homepage
   return "/";
 };
+
+app.use(errorhandler());
 
 // Middleware to inject prismic context
 app.use((req, res, next) => {
@@ -50,26 +53,31 @@ app.get("/collection", (req, res) => {
   res.render("pages/collection");
 });
 
-app.get("/about", (req, res) => {
-  initApi(req).then((api) => {
-    api
-      .query(Prismic.Predicates.any("document.type", ["meta", "about"]))
-      .then((response) => {
-        const { results } = response;
-        const [meta, about] = results;
-        console.log(meta);
+app.get("/about", async (req, res) => {
+  const api = await initApi(req);
 
-        // response is the response object. Render your views here.
-        res.render("pages/about", {
-          meta,
-          about,
-        });
-      });
+  const about = await api.getSingle("about");
+  const meta = await api.getSingle("meta");
+
+  res.render("pages/about", {
+    about,
+    meta,
   });
 });
 
-app.get("/details/:id", (req, res) => {
-  res.render("pages/details");
+app.get("/detail/:uid", async (req, res) => {
+  const api = await initApi(req);
+
+  const meta = await api.getSingle("meta");
+  const product = await api.getByUID("product", req.params.uid, {
+    fetchLinks: "collection.title",
+  });
+
+  console.log(product.data);
+  res.render("pages/detail", {
+    meta,
+    product,
+  });
 });
 
 app.listen(port, () => {
