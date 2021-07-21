@@ -15,6 +15,9 @@ const dirShared = path.join(__dirname, "shared");
 const dirNode = "node_modules";
 
 module.exports = {
+  stats: {
+    errorDetails: true,
+  },
   entry: [path.join(dirApp, "index.js"), path.join(dirStyles, "index.scss")],
   resolve: {
     modules: [dirApp, dirShared, dirStyles, dirNode],
