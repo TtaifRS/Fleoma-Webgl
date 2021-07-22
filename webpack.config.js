@@ -104,7 +104,7 @@ module.exports = {
 
       // Images and font
       {
-        test: /\.(jpg?g|png|gif|svg|woff2?|fnt|webp)$/,
+        test: /\.(jpe?g|png|gif|svg|woff2?|fnt|webp)$/,
         use: [
           {
             loader: "file-loader",
@@ -121,6 +121,16 @@ module.exports = {
         use: [
           {
             loader: ImageMinimizerPlugin.loader,
+            options: {
+              severityError: "warning", // Ignore errors on corrupted images
+              minimizerOptions: {
+                plugins: [
+                  ["gifsicle", { interlaced: true }],
+                  ["jpegtran", { progressive: true }],
+                  ["optipng", { optimizationLevel: 5 }],
+                ],
+              },
+            },
           },
         ],
       },

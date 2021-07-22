@@ -57,8 +57,8 @@ app.use((req, res, next) => {
   next();
 });
 
-const initApi = (req) => {
-  return Prismic.getApi(process.env.PRISMIC_ENDPOINT, {
+const initApi = async (req) => {
+  return await Prismic.getApi(process.env.PRISMIC_ENDPOINT, {
     accessToken: process.env.PRISMIC_ACCESS_TOKEN,
     req,
   });
