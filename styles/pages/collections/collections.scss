@@ -8,25 +8,13 @@
   overflow: hidden;
 }
 .collection__titles {
-  position: absolute;
-  align-items: center;
-  top: 50%;
-  left: 50%;
-  display: flex;
-
-  transform: translate(-50%, -50%) rotate(-90deg);
+  @extend %verticle__titles;
 }
 .collection__titles__label {
-  @extend %description-12;
-  text-transform: uppercase;
-  transform: rotate(90deg);
-  text-align: center;
-  margin: 0 3rem;
-  letter-spacing: 0.1rem;
+  @extend %verticle__titles__label;
 }
 .collection__titles__title {
-  @extend %title-200;
-  padding-top: 2rem;
+  @extend %verticle__titles__title;
 }
 .collection__gallery {
   @extend %cover;
