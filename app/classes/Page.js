@@ -32,15 +32,21 @@ export default class Page {
   }
 
   show() {
-    gsap.from(this.element, {
-      autoAlpha: 0,
-      delay: 5,
+    return new Promise((resolve) => {
+      gsap.from(this.element, {
+        autoAlpha: 0,
+        delay: 0.5,
+        onComplete: resolve,
+      });
     });
   }
 
   hide() {
-    gsap.to(this.element, {
-      autoAlpha: 0,
+    return new Promise((resolve) => {
+      gsap.to(this.element, {
+        autoAlpha: 0,
+        onComplete: resolve,
+      });
     });
   }
 }
