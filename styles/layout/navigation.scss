@@ -3,14 +3,23 @@
   z-index: z("navigation");
   color: $color-white;
   height: 10rem;
+  position: fixed;
+  pointer-events: none;
 }
 .navigation__link {
   position: absolute;
+  pointer-events: auto;
   left: 4rem;
   top: 4rem;
   width: 13rem;
   height: 2rem;
   font-size: 0;
+  @include media("<phone") {
+    left: 5rem;
+    top: 5rem;
+    width: 28rem;
+    height: 4.3rem;
+  }
 }
 .navigation__link__icon {
   display: block;
@@ -21,7 +30,9 @@
   position: absolute;
   right: 4rem;
   top: 4rem;
+  pointer-events: auto;
 }
 .navigation__list__link {
   @extend %title-20;
+  display: block;
 }

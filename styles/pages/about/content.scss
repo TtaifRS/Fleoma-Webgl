@@ -17,6 +17,15 @@
   &:nth-child(8) {
     justify-content: flex-start;
   }
+
+  @include media("<phone") {
+    &:nth-child(5) {
+      justify-content: flex-end;
+    }
+    &:nth-child(8) {
+      justify-content: flex-start;
+    }
+  }
 }
 
 .about__content__wrapper {
@@ -25,25 +34,77 @@
   .about__content--right & {
     flex-direction: row-reverse;
   }
+
+  @include media("<phone") {
+    .about__content:nth-child(3) & {
+      flex-direction: column-reverse;
+    }
+
+    .about__content:nth-child(5) & {
+      flex-direction: column;
+    }
+
+    .about__content:nth-child(8) & {
+      flex-direction: column-reverse;
+    }
+
+    .about__content:nth-child(9) & {
+      flex-direction: column-reverse;
+    }
+  }
 }
 
 .about__content__box {
   display: flex;
+
+  @include media("<phone") {
+    width: 61rem;
+    margin: auto;
+    .about__content:nth-child(3) & {
+      margin-top: 8rem;
+    }
+
+    .about__content:nth-child(5) & {
+      margin-bottom: 8rem;
+    }
+
+    .about__content:nth-child(8) & {
+      margin-top: 8rem;
+    }
+
+    .about__content:nth-child(9) & {
+      margin-top: 8rem;
+    }
+  }
 }
 
 .about__content__label {
   @extend %description-12;
-  font-weight: bold;
+
   width: 18rem;
   text-transform: uppercase;
+  @include media("<phone") {
+    width: 16rem;
+    padding-right: 2.5rem;
+    font-size: 2.4rem;
+    .about__content:nth-child(9) & {
+      word-break: break-all;
+    }
+  }
 }
+
 .about__content__description {
   width: 36rem;
-  font-weight: bold;
+
   p:not(:first-child) {
     margin-top: 2.5rem;
   }
+
+  @include media("<phone") {
+    width: calc(100% - 16rem);
+  }
 }
+
 .about__content__media {
   .about__content:nth-child(3) & {
     width: 54rem;
@@ -59,7 +120,7 @@
   }
   .about__content:nth-child(8) & {
     width: 96rem;
-    height: 60rem;
+    height: 52rem;
     position: relative;
     margin-right: 18rem;
   }
@@ -70,7 +131,34 @@
     position: relative;
     margin-left: 22rem;
   }
+
+  @include media("<phone") {
+    .about__content:nth-child(3) & {
+      margin-left: 0;
+      width: 61rem;
+      height: 92rem;
+    }
+
+    .about__content:nth-child(5) & {
+      width: 100vw;
+      height: 50rem;
+      margin-left: 0;
+    }
+
+    .about__content:nth-child(8) & {
+      width: 100vw;
+      height: 52rem;
+      margin-right: 0;
+    }
+
+    .about__content:nth-child(9) & {
+      width: 61rem;
+      height: 86rem;
+      margin-left: 0;
+    }
+  }
 }
+
 .about__content__media__image {
   @extend %cover;
   object-fit: cover;

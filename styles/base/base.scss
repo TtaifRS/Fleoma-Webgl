@@ -4,14 +4,14 @@
 
 html {
   font-size: calc(100vw / 1920 * 10);
+
+  @include media("<phone") {
+    font-size: calc(100vw / 750 * 10);
+  }
 }
 
 body {
   @extend %description-16;
-
-  @include media("<phone") {
-    font-size: 100px;
-  }
 }
 
 a {
