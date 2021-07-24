@@ -1,4 +1,7 @@
 import { each } from "lodash";
+
+import Preloader from "./components/Preloader";
+
 import About from "./pages/About";
 import Collections from "./pages/Collections";
 import Detail from "./pages/Detail";
@@ -6,17 +9,23 @@ import Home from "./pages/Home";
 
 class App {
   constructor() {
-    this.creatContent();
-    this.creatPages();
+    this.createPreloader();
+    this.createContent();
+    this.createPages();
     this.addLinkListener();
   }
 
-  creatContent() {
+  createPreloader() {
+    this.preloader = new Preloader();
+    this.preloader.once("completed", this.onPreloaded.bind(this));
+  }
+
+  createContent() {
     this.content = document.querySelector(".content");
     this.template = this.content.getAttribute("data-template");
   }
 
-  creatPages() {
+  createPages() {
     this.pages = {
       about: new About(),
       collections: new Collections(),
@@ -26,8 +35,11 @@ class App {
     this.page = this.pages[this.template];
 
     this.page.create();
+  }
+
+  onPreloaded() {
+    this.preloader.destroy();
     this.page.show();
-    this.page.hide();
   }
 
   async onChange(url) {
@@ -59,13 +71,11 @@ class App {
 
   addLinkListener() {
     const links = document.querySelectorAll("a");
-    console.log(links);
     each(links, (link) => {
       link.onclick = (event) => {
         event.preventDefault();
 
         const { href } = link;
-        console.log(href);
         this.onChange(href);
       };
     });
