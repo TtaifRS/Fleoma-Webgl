@@ -4,6 +4,12 @@
 
 html {
   font-size: calc(100vw / 1920 * 10);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 
   @include media("<phone") {
     font-size: calc(100vw / 750 * 10);
@@ -12,6 +18,11 @@ html {
 
 body {
   @extend %description-16;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 a {
@@ -30,4 +41,12 @@ button {
   outline: none;
   cursor: pointer;
   border: none;
+}
+
+.content {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
