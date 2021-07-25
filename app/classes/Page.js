@@ -2,12 +2,18 @@ import each from "lodash/each";
 import gsap from "gsap";
 import Prefix from "prefix";
 import normalizeWheel from "normalize-wheel";
+import { map } from "lodash";
+
+import Title from "animation/Title";
 
 export default class Page {
   constructor({ id, element, elements }) {
     this.id = id;
     this.selector = element;
-    this.selectorChildren = { ...elements };
+    this.selectorChildren = {
+      ...elements,
+      animationTitle: '[data-animation="title"]',
+    };
     this.transformPrefix = Prefix("transform");
     this.onMouseWheelEvent = this.onMouseWheel.bind(this);
   }
@@ -38,6 +44,16 @@ export default class Page {
           this.elements[key] = document.querySelector(entry);
         }
       }
+    });
+
+    this.createAnimation();
+  }
+
+  createAnimation() {
+    this.animationTitle = map(this.elements.animationTitle, (element) => {
+      return new Title({
+        element,
+      });
     });
   }
 
