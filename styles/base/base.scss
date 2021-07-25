@@ -51,6 +51,8 @@ button {
   height: 100%;
 }
 
+[data-animation="label"],
+[data-animation="paragraph"],
 [data-animation="title"] {
   span {
     display: inline-block;

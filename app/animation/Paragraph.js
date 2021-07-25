@@ -3,20 +3,14 @@ import gsap from "gsap/gsap-core";
 import { each } from "lodash";
 import { split, calculate } from "../utils/text";
 
-export default class Title extends Animation {
+export default class Paragraph extends Animation {
   constructor({ element, elements }) {
     super({ element, elements });
-    split({
+
+    this.elementSpansLines = split({
       element: this.element,
       append: true,
     });
-
-    split({
-      element: this.element,
-      append: true,
-    });
-
-    this.elementSpansLines = this.element.querySelectorAll("span span");
   }
 
   animateIn() {
@@ -31,10 +25,12 @@ export default class Title extends Animation {
       this.timeline.fromTo(
         line,
         {
+          autoAlpha: 0,
           y: "100%",
         },
         {
-          delay: index * 0.09,
+          autoAlpha: 1,
+          delay: index * 0.015,
           duration: 1.5,
           ease: "expo.out",
           y: "0%",

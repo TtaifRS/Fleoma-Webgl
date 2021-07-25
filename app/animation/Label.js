@@ -3,7 +3,7 @@ import gsap from "gsap/gsap-core";
 import { each } from "lodash";
 import { split, calculate } from "../utils/text";
 
-export default class Title extends Animation {
+export default class Label extends Animation {
   constructor({ element, elements }) {
     super({ element, elements });
     split({

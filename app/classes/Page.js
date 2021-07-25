@@ -5,6 +5,9 @@ import normalizeWheel from "normalize-wheel";
 import { map } from "lodash";
 
 import Title from "animation/Title";
+import Paragraph from "animation/Paragraph";
+import Label from "animation/Label";
+import Highlight from "animation/Highlight";
 
 export default class Page {
   constructor({ id, element, elements }) {
@@ -12,7 +15,10 @@ export default class Page {
     this.selector = element;
     this.selectorChildren = {
       ...elements,
+      animationLabel: '[data-animation="label"]',
+      animationParagraph: '[data-animation="paragraph"]',
       animationTitle: '[data-animation="title"]',
+      animationHighlight: '[data-animation="highlight"]',
     };
     this.transformPrefix = Prefix("transform");
     this.onMouseWheelEvent = this.onMouseWheel.bind(this);
@@ -50,11 +56,42 @@ export default class Page {
   }
 
   createAnimation() {
+    this.animation = [];
+
+    //title
     this.animationTitle = map(this.elements.animationTitle, (element) => {
       return new Title({
         element,
       });
     });
+    this.animation.push = [...this.animationTitle];
+
+    //paragraph
+    this.animationParagraph = map(
+      this.elements.animationParagraph,
+      (element) => {
+        return new Paragraph({
+          element,
+        });
+      }
+    );
+
+    //label
+    this.animationLabel = map(this.elements.animationLabel, (element) => {
+      return new Label({
+        element,
+      });
+    });
+
+    //highlight
+    this.animationHighlight = map(
+      this.elements.animationHighlight,
+      (element) => {
+        return new Highlight({
+          element,
+        });
+      }
+    );
   }
 
   show() {
@@ -97,7 +134,7 @@ export default class Page {
       this.scroll.limit =
         this.elements.wrapper.clientHeight - window.innerHeight;
     }
-    each(this.animationTitle, (animationTitle) => animationTitle.onResize());
+    each(this.animation, (animation) => animation.onResize());
   }
 
   update() {
