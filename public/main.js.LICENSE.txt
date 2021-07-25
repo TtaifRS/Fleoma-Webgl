@@ -24,7 +24,11 @@
 
 /*! ./CSSPlugin.js */
 
+/*! ./ExecutionEnvironment */
+
 /*! ./SockJSClient */
+
+/*! ./UserAgent_DEPRECATED */
 
 /*! ./_Symbol */
 
@@ -102,6 +106,8 @@
 
 /*! ./isBuffer */
 
+/*! ./isEventSupported */
+
 /*! ./isFunction */
 
 /*! ./isLength */
@@ -129,6 +135,8 @@
 /*! ./pages/Home */
 
 /*! ./socket */
+
+/*! ./src/normalizeWheel.js */
 
 /*! ./stubFalse */
 
@@ -169,6 +177,8 @@
 /*! lodash/each */
 
 /*! loglevel */
+
+/*! normalize-wheel */
 
 /*! prefix */
 
@@ -428,6 +438,10 @@
   !*** ./node_modules/loglevel/lib/loglevel.js ***!
   \***********************************************/
 
+/*!***********************************************!*\
+  !*** ./node_modules/normalize-wheel/index.js ***!
+  \***********************************************/
+
 /*!************************************************!*\
   !*** ./node_modules/lodash/_createBaseEach.js ***!
   \************************************************/
@@ -477,6 +491,10 @@
   \***********************************************************/
 
 /*!************************************************************!*\
+  !*** ./node_modules/normalize-wheel/src/normalizeWheel.js ***!
+  \************************************************************/
+
+/*!************************************************************!*\
   !*** ./node_modules/url/node_modules/punycode/punycode.js ***!
   \************************************************************/
 
@@ -484,9 +502,21 @@
   !*** ./node_modules/webpack-dev-server/client/utils/log.js ***!
   \*************************************************************/
 
+/*!**************************************************************!*\
+  !*** ./node_modules/normalize-wheel/src/isEventSupported.js ***!
+  \**************************************************************/
+
 /*!***************************************************************!*\
   !*** ./node_modules/webpack/hot/ sync nonrecursive ^\.\/log$ ***!
   \***************************************************************/
+
+/*!******************************************************************!*\
+  !*** ./node_modules/normalize-wheel/src/ExecutionEnvironment.js ***!
+  \******************************************************************/
+
+/*!******************************************************************!*\
+  !*** ./node_modules/normalize-wheel/src/UserAgent_DEPRECATED.js ***!
+  \******************************************************************/
 
 /*!*******************************************************************!*\
   !*** ./node_modules/webpack-dev-server/client/utils/reloadApp.js ***!
@@ -523,4 +553,19 @@
  * Released under MIT license <https://lodash.com/license>
  * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
  * Copyright Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
+ */
+
+/**
+ * Checks if an event is supported in the current execution environment.
+ *
+ * NOTE: This will not work correctly for non-generic events such as `change`,
+ * `reset`, `load`, `error`, and `select`.
+ *
+ * Borrows from Modernizr.
+ *
+ * @param {string} eventNameSuffix Event name, e.g. "click".
+ * @param {?boolean} capture Check if the capture phase is supported.
+ * @return {boolean} True if the event is supported.
+ * @internal
+ * @license Modernizr 3.0.0pre (Custom Build) | MIT
  */
