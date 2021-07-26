@@ -1,20 +1,29 @@
 import { each } from "lodash";
 
-import Preloader from "./components/Preloader";
+import Navigation from "components/Navigation";
+import Preloader from "components/Preloader";
 
-import About from "./pages/About";
-import Collections from "./pages/Collections";
-import Detail from "./pages/Detail";
-import Home from "./pages/Home";
+import About from "pages/About";
+import Collections from "pages/Collections";
+import Detail from "pages/Detail";
+import Home from "pages/Home";
 
 class App {
   constructor() {
-    this.createPreloader();
     this.createContent();
+
+    this.createPreloader();
+    this.createNavigation();
     this.createPages();
+
     this.addEventListener();
     this.addLinkListener();
     this.update();
+  }
+
+  createContent() {
+    this.content = document.querySelector(".content");
+    this.template = this.content.getAttribute("data-template");
   }
 
   createPreloader() {
@@ -22,9 +31,10 @@ class App {
     this.preloader.once("completed", this.onPreloaded.bind(this));
   }
 
-  createContent() {
-    this.content = document.querySelector(".content");
-    this.template = this.content.getAttribute("data-template");
+  createNavigation() {
+    this.navigation = new Navigation({
+      template: this.template,
+    });
   }
 
   createPages() {
@@ -59,6 +69,8 @@ class App {
 
       const divContent = div.querySelector(".content");
       this.template = divContent.getAttribute("data-template");
+
+      this.navigation.onChange(this.template);
 
       this.content.setAttribute("data-template", this.template);
       this.content.innerHTML = divContent.innerHTML;

@@ -8,6 +8,7 @@ import Title from "animation/Title";
 import Paragraph from "animation/Paragraph";
 import Label from "animation/Label";
 import Highlight from "animation/Highlight";
+import { ColorManager } from "./Colors";
 
 export default class Page {
   constructor({ id, element, elements }) {
@@ -96,6 +97,13 @@ export default class Page {
 
   show() {
     return new Promise((resolve) => {
+      ColorManager.change(
+        {
+          backgroundColor: this.element.getAttribute("data-background"),
+          color: this.element.getAttribute("data-color"),
+        },
+        console.log(this.element.getAttribute("data-background"))
+      );
       this.animationIn = gsap.timeline();
       this.animationIn.fromTo(
         this.element,

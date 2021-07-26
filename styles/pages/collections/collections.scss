@@ -1,7 +1,7 @@
 .collection {
   @extend %page;
-  background: $color-quicksand;
-  color: $color-white;
+  // background: $color-quicksand;
+  // color: $color-white;
 }
 .collection__wrapper {
   @extend %cover;
@@ -68,9 +68,12 @@
 }
 
 .collection__mobile {
-  display: flex;
+  display: none;
   position: absolute;
   bottom: 5rem;
+  @include media("<phone") {
+    display: flex;
+  }
 }
 
 .collection__mobile__item {
