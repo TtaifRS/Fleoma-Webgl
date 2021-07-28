@@ -9,6 +9,7 @@ import Paragraph from "animation/Paragraph";
 import Label from "animation/Label";
 import Highlight from "animation/Highlight";
 import { ColorManager } from "./Colors";
+import AsyncLoad from "./AsyncLoad";
 
 export default class Page {
   constructor({ id, element, elements }) {
@@ -20,6 +21,8 @@ export default class Page {
       animationParagraph: '[data-animation="paragraph"]',
       animationTitle: '[data-animation="title"]',
       animationHighlight: '[data-animation="highlight"]',
+
+      preloaders: "[data-src]",
     };
     this.transformPrefix = Prefix("transform");
     this.onMouseWheelEvent = this.onMouseWheel.bind(this);
@@ -54,6 +57,7 @@ export default class Page {
     });
 
     this.createAnimation();
+    this.createPreloader();
   }
 
   createAnimation() {
@@ -95,15 +99,22 @@ export default class Page {
     );
   }
 
+  createPreloader() {
+    this.preloaders = map(this.elements.preloaders, (element) => {
+      return new AsyncLoad({ element });
+    });
+  }
+
+  /**
+   * animation
+   */
+
   show() {
     return new Promise((resolve) => {
-      ColorManager.change(
-        {
-          backgroundColor: this.element.getAttribute("data-background"),
-          color: this.element.getAttribute("data-color"),
-        },
-        console.log(this.element.getAttribute("data-background"))
-      );
+      ColorManager.change({
+        backgroundColor: this.element.getAttribute("data-background"),
+        color: this.element.getAttribute("data-color"),
+      });
       this.animationIn = gsap.timeline();
       this.animationIn.fromTo(
         this.element,
@@ -123,7 +134,7 @@ export default class Page {
 
   hide() {
     return new Promise((resolve) => {
-      this.removeEventListener();
+      this.destroy();
       this.animationOut = gsap.timeline();
       this.animationOut.to(this.element, {
         autoAlpha: 0,
@@ -131,6 +142,10 @@ export default class Page {
       });
     });
   }
+
+  /**
+   * events
+   */
 
   onMouseWheel(event) {
     const { pixelY } = normalizeWheel(event);
@@ -144,6 +159,10 @@ export default class Page {
     }
     each(this.animation, (animation) => animation.onResize());
   }
+
+  /**
+   * loop
+   */
 
   update() {
     this.scroll.target = gsap.utils.clamp(
@@ -169,11 +188,22 @@ export default class Page {
     }
   }
 
+  /**
+   * listeners
+   */
   addEventListener() {
     window.addEventListener("mousewheel", this.onMouseWheelEvent);
   }
 
   removeEventListener() {
     window.removeEventListener("mousewheel", this.onMouseWheelEvent);
+  }
+
+  /**
+   * destroy
+   */
+
+  destroy() {
+    this.removeEventListener();
   }
 }

@@ -7,9 +7,6 @@ class Colors {
       color,
       duration: 1.5,
     });
-
-    console.log("background", backgroundColor);
-    console.log("color", color);
   }
 }
 

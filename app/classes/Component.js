@@ -41,5 +41,5 @@ export default class Component extends EventEmitter {
 
   addEventLisnteners() {}
 
-  removeEventListners() {}
+  removeEventListeners() {}
 }
