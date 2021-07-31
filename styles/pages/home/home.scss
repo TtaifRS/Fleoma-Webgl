@@ -51,13 +51,143 @@
 .home__gallery {
   @extend %cover;
   visibility: hidden;
+  height: 172.5rem;
+  width: 242rem;
 }
 
 .home__gallery__media {
   position: absolute;
+
+  &:nth-child(1) {
+    height: 42rem;
+    width: 28rem;
+    left: 9.5rem;
+    top: 16.5rem;
+  }
+
+  &:nth-child(2) {
+    height: 42rem;
+    width: 28rem;
+    top: 19rem;
+    left: 54rem;
+  }
+
+  &:nth-child(3) {
+    height: 42rem;
+    width: 28rem;
+    left: 106rem;
+    top: 10.5rem;
+  }
+
+  &:nth-child(4) {
+    height: 42rem;
+    width: 40.5rem;
+    left: 154rem;
+    top: 0;
+  }
+
+  &:nth-child(5) {
+    height: 42rem;
+    width: 28rem;
+    left: 207rem;
+    top: 10.5rem;
+  }
+
+  &:nth-child(6) {
+    height: 52.5rem;
+    width: 37.5rem;
+    left: 0;
+    top: 69rem;
+  }
+
+  &:nth-child(7) {
+    height: 69rem;
+    width: 37.5rem;
+    left: 46.5rem;
+    top: 66rem;
+  }
+  &:nth-child(8) {
+    height: 58rem;
+    width: 40rem;
+    left: 101.5rem;
+    top: 64.5rem;
+  }
+
+  &:nth-child(9) {
+    height: 42rem;
+    width: 28rem;
+    left: 160rem;
+    top: 63.5rem;
+  }
+
+  &:nth-child(10) {
+    height: 58rem;
+    width: 39.7rem;
+    left: 202rem;
+    top: 64.7rem;
+  }
+
+  &:nth-child(11) {
+    height: 42rem;
+    width: 28rem;
+    left: 13rem;
+    top: 129rem;
+  }
+
+  &:nth-child(12) {
+    height: 42rem;
+    width: 28rem;
+    left: 54rem;
+    top: 130.5rem;
+  }
+
+  &:nth-child(13) {
+    height: 42rem;
+    width: 28rem;
+    left: 105.7rem;
+    top: 130.5rem;
+  }
+
+  &:nth-child(14) {
+    height: 42rem;
+    width: 28rem;
+    left: 164.7rem;
+    top: 128rem;
+  }
+
+  &:nth-child(15) {
+    height: 42rem;
+    width: 28rem;
+    left: 206.5rem;
+    top: 128.5rem;
+  }
+
+  &:nth-child(16) {
+    height: 42rem;
+    width: 28rem;
+    left: 105.7rem;
+    top: 172.5rem;
+  }
+
+  &:nth-child(17) {
+    height: 42rem;
+    width: 28rem;
+    left: 164.7rem;
+    top: 170rem;
+  }
+
+  &:nth-child(18) {
+    height: 42rem;
+    width: 28rem;
+    left: 206.5rem;
+    top: 170.5rem;
+  }
 }
 
 .home__gallery__media__img {
+  opacity: 1;
+  height: 100%;
+  width: 100%;
 }
 .home__link {
   @extend %description-14;
