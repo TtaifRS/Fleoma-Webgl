@@ -12,6 +12,11 @@ export default class Media {
     this.index = index;
     this.sizes = sizes;
 
+    this.extra = {
+      x: 0,
+      y: 0,
+    };
+
     this.createTexture();
     this.createProgram();
     this.createMesh();
@@ -65,7 +70,10 @@ export default class Media {
   updateX(x = 0) {
     this.x = (this.bounds.left + x) / window.innerWidth;
     this.mesh.position.x =
-      -this.sizes.width / 2 + this.mesh.scale.x / 2 + this.x * this.sizes.width;
+      -this.sizes.width / 2 +
+      this.mesh.scale.x / 2 +
+      this.x * this.sizes.width +
+      this.extra.x;
   }
 
   updateY(y = 0) {
@@ -73,7 +81,8 @@ export default class Media {
     this.mesh.position.y =
       this.sizes.height / 2 -
       this.mesh.scale.y / 2 -
-      this.y * this.sizes.height;
+      this.y * this.sizes.height +
+      this.extra.y;
   }
 
   update(scroll) {
