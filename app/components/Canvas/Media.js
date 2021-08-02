@@ -1,5 +1,7 @@
 import { Mesh, Program, Texture } from "ogl";
 
+import gsap from "gsap";
+
 import vertex from "../../shaders/plainVertex.glsl";
 import fragment from "../../shaders/plainFragment.glsl";
 
@@ -49,6 +51,7 @@ export default class Media {
     });
 
     this.mesh.setParent(this.scene);
+    this.mesh.rotation.z = gsap.utils.random(-Math.PI * 0.03, Math.PI * 0.03);
   }
 
   createBound({ sizes }) {
@@ -91,7 +94,13 @@ export default class Media {
     this.updateY(scroll.y);
   }
 
-  onResize(sizes) {
+  onResize(sizes, scroll) {
+    this.extra = {
+      x: 0,
+      y: 0,
+    };
     this.createBound(sizes);
+    this.updateX(scroll ? scroll.x : 0);
+    this.updateY(scroll ? scroll.y : 0);
   }
 }
