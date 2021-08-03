@@ -12,13 +12,9 @@ export default class Home {
       ".home__gallery__media__img"
     );
     this.gl = gl;
+    this.scene = scene;
     this.sizes = sizes;
     this.group = new Transform();
-
-    this.createGeometry();
-    this.createGallery();
-
-    this.group.setParent(scene);
 
     this.x = {
       current: 0,
@@ -41,6 +37,12 @@ export default class Home {
       x: 0,
       y: 0,
     };
+
+    this.createGeometry();
+    this.createGallery();
+
+    this.group.setParent(this.scene);
+    this.show();
   }
 
   createGeometry() {
@@ -58,6 +60,18 @@ export default class Home {
         sizes: this.sizes,
       });
     });
+  }
+
+  /**
+   * animation
+   */
+
+  show() {
+    map(this.medias, (media) => media.show());
+  }
+
+  hide() {
+    map(this.medias, (media) => media.hide());
   }
 
   /**
@@ -177,5 +191,9 @@ export default class Home {
       }
       media.update(this.scroll);
     });
+  }
+
+  destroy() {
+    this.scene.removeChild(this.group);
   }
 }
