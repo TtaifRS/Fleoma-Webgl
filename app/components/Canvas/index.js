@@ -205,13 +205,14 @@ export default class Canvas {
   /**
    * loop
    */
-  update() {
+  update(scroll) {
+    if (this.about) {
+      this.about.update(scroll);
+    }
     if (this.home) {
       this.home.update();
     }
-    if (this.about) {
-      this.about.update();
-    }
+
     this.renderer.render({
       scene: this.scene,
       camera: this.camera,

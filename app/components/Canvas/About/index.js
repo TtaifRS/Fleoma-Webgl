@@ -72,8 +72,8 @@ export default class Home {
    * update
    */
 
-  update() {
-    map(this.galleries, (gallery) => gallery.update());
+  update(scroll) {
+    map(this.galleries, (gallery) => gallery.update(scroll));
   }
   destroy() {
     map(this.galleries, (gallery) => gallery.destroy());

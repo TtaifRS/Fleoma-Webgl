@@ -87,12 +87,33 @@ export default class Media {
     this.updateY();
   }
 
+  updateRotation() {
+    this.mesh.rotation.z = gsap.utils.mapRange(
+      -this.sizes.width / 2,
+      this.sizes.width / 2,
+      Math.PI * 0.1,
+      -Math.PI * 0.1,
+      this.mesh.position.x
+    );
+  }
+
   updateScale() {
     this.height = this.bounds.height / window.innerHeight;
     this.width = this.bounds.width / window.innerWidth;
 
     this.mesh.scale.x = this.width * this.sizes.width;
     this.mesh.scale.y = this.height * this.sizes.height;
+
+    const scale = gsap.utils.mapRange(
+      0,
+      this.sizes.width / 2,
+      0.1,
+      0,
+      Math.abs(this.mesh.position.x)
+    );
+
+    this.mesh.scale.x += scale;
+    this.mesh.scale.y += scale;
   }
 
   updateX(x = 0) {
@@ -110,10 +131,16 @@ export default class Media {
       this.sizes.height / 2 -
       this.mesh.scale.y / 2 -
       this.y * this.sizes.height;
+
+    this.mesh.position.y +=
+      Math.cos((this.mesh.position.x / this.sizes.width) * Math.PI * 0.1) * 40 -
+      40;
   }
 
   update(scroll) {
     if (!this.bounds) return;
+    this.updateRotation();
+    this.updateScale();
     this.updateX(scroll);
     this.updateY(0);
   }
